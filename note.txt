@@ -1,0 +1,4 @@
+Hashing Algorithm
+
+
+//salting - generating random string
