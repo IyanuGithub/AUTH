@@ -2,3 +2,11 @@ Hashing Algorithm
 
 
 //salting - generating random string
+
+refactoring
+error handling
+mongoose hooks(middleware)
+
+authentication(session based (cookies) and token based)
+protecting route using authentication
+integrating ejs views
