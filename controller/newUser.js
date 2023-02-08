@@ -36,7 +36,7 @@ const register = async(req, res) => {
         res.status(201).json({ success: true, data: user })
     } catch (error) {
         const errors = handleErrors(error)
-        res.status(400).json({errors})
+        res.status(400).json({success: false, errors})
         //handle errors in the catch block
         
     }
@@ -52,10 +52,9 @@ const login = async (req, res) => {
     //email is registered
     const user = await Users.findOne({email})
     if (user) {
-        const authenticated = await bcrypt.compare(password, user.password)
+        const authenticated = await bcrypt.compare(password, user.password);
         if (authenticated) {
             return res.status(200).json({success: true, data: user})
-
         }
         throw Error('Invalid email or password')
 
@@ -63,7 +62,7 @@ const login = async (req, res) => {
     throw Error('User not registered yet')
    } catch (error) {
     const errors = handleErrors(error)
-        res.status(400).json({errors})
+        res.status(400).json({success: false, errors})
     
    }
 }

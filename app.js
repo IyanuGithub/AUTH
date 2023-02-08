@@ -13,6 +13,7 @@ app.set('view engine', 'ejs')
 
 //MIDDLEWARE
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 //ROUTES
 app.use(newRouter);
