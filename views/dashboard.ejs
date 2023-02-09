@@ -7,6 +7,11 @@
     <title>DASHBOARD</title>
 </head>
 <body>
+    <a href="/logout">LOG OUT</a>
+    <h1>WELCOME TO YOUR DASHBOARD</h1>
+    <% if(email){ %>
+    <h1>Welcome <%= email %></h1>
+    <%} %>
     <nav>
         <ul>
             <li><a href="/dashboard">dashboard</a></li>

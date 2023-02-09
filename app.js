@@ -1,11 +1,14 @@
 require('dotenv').config()
 const express =  require("express")
 const app = express()
-const PORT = 3000
+const PORT = 4000
 const mongoose = require("mongoose")
 const notFound = require('./middleware/notfound')
 // const userRouter = require('./routes/userRoutes')
 const newRouter = require('./routes/newUserRouter')
+
+const cookieparser = require('cookie-parser')
+
 mongoose.set("strictQuery", true);
 
 
@@ -14,6 +17,7 @@ app.set('view engine', 'ejs')
 //MIDDLEWARE
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(cookieparser())
 
 //ROUTES
 app.use(newRouter);
@@ -23,8 +27,20 @@ app.get("/signup", (req,res)=>{
 app.get("/login", (req,res)=>{
     res.status(200).render("login")
 })
-app.get("/dashboard", (req,res)=>{
-    res.status(200).render("dashboard")
+
+//set cookies
+app.get('/example', (req, res) => {
+    res.cookie('isAdmin', true)
+    //milliseconds
+    res.cookie('another', false, {maxAge: 24 * 60 * 60 * 1000, secure: true, httpOnly: true,})
+
+    res.send('cookies set')
+})
+
+app.get('/get', (req, res) => {
+    const cookies = req.cookies
+    const { isAdmin } = cookies 
+    res.json(cookies)
 })
 //ERROR ROUTE
 app.use(notFound);
@@ -38,3 +54,4 @@ const start = async ()=> {
     }
 
 start()
+
